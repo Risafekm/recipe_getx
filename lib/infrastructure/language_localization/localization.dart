@@ -7,19 +7,25 @@ class LocalizationServices extends Translations {
   Map<String, Map<String, String>> get keys => {
         'en_US': {
           'home_content': 'Welcome to the My Recipe Box app!',
-          'profile_appbar': 'Profile',
+          'grocery_appbar': 'Grocery',
           'shopping_list': 'Shopping list',
           'calendar_appbar': 'Calendar',
           'home_appbar': 'All',
-          'add': 'New Recipe',
+          'new recipe': 'New Recipe',
+          'calendar': 'Calendar',
+          'grocery': 'Grocery',
+          'add': 'Add'
         },
         'ml_IN': {
           'home_content': 'എൻ്റെ Recipe Box ആപ്പിലേക്ക് സ്വാഗതം',
-          'profile_appbar': 'പ്രൊഫൈൽ',
+          'grocery_appbar': 'പലചരക്ക്',
           'shopping_list': 'ഷോപ്പിംഗ് ലിസ്റ്റ്',
           'calendar_appbar': 'കലണ്ടർ',
           'home_appbar': 'എല്ലാം',
-          'add': 'പുതിയ പാചക',
+          'new recipe': 'പുതിയ പാചക',
+          'calendar': 'കലണ്ടർ',
+          'grocery': 'പലചരക്ക്',
+          'add': 'ചേർക്കുക',
         },
       };
 

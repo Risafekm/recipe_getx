@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class CalendarScreen extends StatelessWidget {
-  const CalendarScreen({super.key});
+class AddNewRecipe extends StatelessWidget {
+  const AddNewRecipe({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,10 +12,9 @@ class CalendarScreen extends StatelessWidget {
           onTap: () => Get.back(),
           child: const Icon(Icons.arrow_back_ios),
         ),
-        title: Text('calendar_appbar'.tr),
-        automaticallyImplyLeading: false,
+        title: Text('new_recipe'.tr),
       ),
-      body: const Center(child: Text('Calender')),
+      body: Center(child: Text('Add new recipe')),
     );
   }
 }

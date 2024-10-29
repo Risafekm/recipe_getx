@@ -11,10 +11,12 @@ class LocalizationServices extends Translations {
           'shopping_list': 'Shopping list',
           'calendar_appbar': 'Calendar',
           'home_appbar': 'All',
-          'new recipe': 'New Recipe',
+          'new_recipe': 'New Recipe',
           'calendar': 'Calendar',
           'grocery': 'Grocery',
-          'add': 'Add'
+          'add': 'Add',
+          'add_from_internet': 'Add from internet',
+          'scan_recipe_beta': 'Scan Recipe (beta)'
         },
         'ml_IN': {
           'home_content': 'എൻ്റെ Recipe Box ആപ്പിലേക്ക് സ്വാഗതം',
@@ -22,10 +24,12 @@ class LocalizationServices extends Translations {
           'shopping_list': 'ഷോപ്പിംഗ് ലിസ്റ്റ്',
           'calendar_appbar': 'കലണ്ടർ',
           'home_appbar': 'എല്ലാം',
-          'new recipe': 'പുതിയ പാചക',
+          'new_recipe': 'പുതിയ പാചക',
           'calendar': 'കലണ്ടർ',
           'grocery': 'പലചരക്ക്',
           'add': 'ചേർക്കുക',
+          'add_from_internet': 'ഇൻ്റർനെറ്റിൽ നിന്ന് ചേർക്കുക',
+          'scan_recipe_beta': 'സ്കാൻ പാചകക്കുറിപ്പ് (ബീറ്റ)'
         },
       };
 

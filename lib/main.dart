@@ -7,7 +7,8 @@ import 'package:recipe_getx/core/theme.dart';
 import 'package:recipe_getx/infrastructure/language_localization/localization.dart';
 import 'package:recipe_getx/presentation/bottom_navigation/bottom_navigation.dart';
 import 'package:recipe_getx/presentation/pages/calendar/calendar.dart';
-import 'package:recipe_getx/presentation/pages/home_screen/widgets/home_screen.dart';
+import 'package:recipe_getx/presentation/pages/grocery/widgets/add_new_recipe.dart';
+import 'package:recipe_getx/presentation/pages/home_screen/home_screen.dart';
 import 'package:recipe_getx/presentation/pages/grocery/grocery.dart';
 
 void main() async {
@@ -35,11 +36,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         appBarTheme: MyTheme().appTheme,
       ),
-      home: BottomNavigator(),
+      home: const BottomNavigator(),
       getPages: [
         GetPage(name: '/calendar', page: () => const CalendarScreen()),
         GetPage(name: '/home', page: () => const HomeScreen()),
         GetPage(name: '/grocery', page: () => const GroceryScreen()),
+        GetPage(name: '/add', page: () => const AddNewRecipe()),
+        GetPage(name: '/bottom', page: () => const BottomNavigator())
       ],
     );
   }

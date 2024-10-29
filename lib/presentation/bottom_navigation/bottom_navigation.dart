@@ -2,14 +2,31 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:recipe_getx/core/api_const.dart';
-import 'package:recipe_getx/presentation/pages/home_screen/widgets/home_screen.dart';
+import 'package:recipe_getx/presentation/pages/home_screen/home_screen.dart';
 
 class BottomNavigator extends StatelessWidget {
   const BottomNavigator({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final List<Map<String, dynamic>> items = [
+      {
+        'icon': Icons.search,
+        'title': 'add_from_internet'.tr,
+        'pages': '',
+      },
+      {
+        'icon': Icons.add,
+        'title': 'new_recipe'.tr,
+        'pages': '/add',
+      },
+      {
+        'icon': Icons.document_scanner_rounded,
+        'title': 'scan_recipe_beta'.tr,
+        'pages': '',
+      },
+    ];
+
     return Scaffold(
       body: const HomeScreen(),
       bottomNavigationBar: BottomAppBar(
@@ -48,8 +65,8 @@ class BottomNavigator extends StatelessWidget {
                       return Container(
                         padding: const EdgeInsets.all(16.0),
                         child: ListView.builder(
-                          itemCount: items.length,
                           shrinkWrap: true,
+                          itemCount: items.length,
                           itemBuilder: (context, index) {
                             return ListTile(
                               leading: Container(
@@ -68,9 +85,8 @@ class BottomNavigator extends StatelessWidget {
                               ),
                               onTap: () {
                                 // Handle tap on item
-                                Navigator.pop(
-                                    context); // Close the bottom sheet
-                                // Perform the navigation or action here
+                                Get.back(); // Close the bottom sheet
+                                Get.toNamed(items[index]['pages']);
                                 print('${items[index]['title']} tapped!');
                               },
                             );

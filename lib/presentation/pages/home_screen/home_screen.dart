@@ -1,23 +1,26 @@
-// home_screen.dart
-// ignore_for_file: unused_local_variable, sized_box_for_whitespace
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
+import 'package:recipe_getx/domain/models/recipes_model.dart';
+import 'package:recipe_getx/domain/services/recipe_service.dart';
+import 'package:recipe_getx/infrastructure/controller/recipe_controller.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // Initialize RecipeController
+    final RecipeController recipeController = Get.put(RecipeController());
+    recipeController.loadRecipes();
+
     final List languages = [
-      {"name": "English", "locale": const Locale('en_US')},
-      {"name": "Malayalam", "locale": const Locale('ml_IN')},
+      {"name": "English", "locale": const Locale('en', 'US')},
+      {"name": "Malayalam", "locale": const Locale('ml', 'IN')},
     ];
 
     void changeLanguage(Locale locale) {
       Get.back();
-      // Save selected language to Hive
       final box = Hive.box('language');
       box.put('locale', '${locale.languageCode}_${locale.countryCode}');
       Get.updateLocale(locale);
@@ -25,34 +28,74 @@ class HomeScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text('home_appbar'.tr),
         actions: [
           IconButton(
             onPressed: () {
               showDialogBox(context, languages, changeLanguage);
             },
-            icon: const Icon(
-              Icons.change_circle,
-            ),
+            icon: const Icon(Icons.change_circle),
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.only(left: 25.0, right: 10),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Center(
+      body: Obx(() {
+        if (recipeController.recipes.isEmpty) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25.0),
+            child: Center(
               child: Text(
                 'home_content'.tr,
-                style:
-                    const TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
+                style: const TextStyle(
+                  fontSize: 21,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
-          ],
-        ),
-      ),
+          );
+        }
+        return ListView.builder(
+          itemCount: recipeController.recipes.length,
+          itemBuilder: (context, index) {
+            final RecipeModel recipe = recipeController.recipes[index];
+            return Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Card(
+                child: ListTile(
+                  contentPadding: const EdgeInsets.all(8.0),
+                  leading: Image.network(
+                    recipe.imageUrl,
+                    height: 100,
+                    width: 100,
+                  ),
+                  title:
+                      Text(recipe.name, style: const TextStyle(fontSize: 18)),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 10),
+                      Text(recipe.description,
+                          style: const TextStyle(fontSize: 16)),
+                      const SizedBox(height: 10),
+                      Text("Cooking Time: ${recipe.cookingTime}",
+                          style: const TextStyle(fontSize: 14)),
+                      const SizedBox(height: 10),
+                      Text("Ingredients: ${recipe.ingredients}",
+                          style: const TextStyle(fontSize: 14)),
+                    ],
+                  ),
+                  trailing: IconButton(
+                    icon: const Icon(Icons.delete, color: Colors.red),
+                    onPressed: () async {
+                      await recipeController.deleteRecipe(index);
+                    },
+                  ),
+                ),
+              ),
+            );
+          },
+        );
+      }),
     );
   }
 
@@ -63,7 +106,7 @@ class HomeScreen extends StatelessWidget {
       builder: (context) {
         return AlertDialog(
           title: const Text('Languages'),
-          content: Container(
+          content: SizedBox(
             width: double.maxFinite,
             child: ListView.separated(
               itemCount: languages.length,
@@ -80,9 +123,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                 );
               },
-              separatorBuilder: (context, index) {
-                return const Divider();
-              },
+              separatorBuilder: (context, index) => const Divider(),
             ),
           ),
         );

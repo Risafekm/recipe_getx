@@ -16,7 +16,8 @@ class LocalizationServices extends Translations {
           'grocery': 'Grocery',
           'add': 'Add',
           'add_from_internet': 'Add from internet',
-          'scan_recipe_beta': 'Scan Recipe (beta)'
+          'scan_recipe_beta': 'Scan Recipe (beta)',
+          'description': 'Description',
         },
         'ml_IN': {
           'home_content': 'എൻ്റെ Recipe Box ആപ്പിലേക്ക് സ്വാഗതം',
@@ -29,7 +30,8 @@ class LocalizationServices extends Translations {
           'grocery': 'പലചരക്ക്',
           'add': 'ചേർക്കുക',
           'add_from_internet': 'ഇൻ്റർനെറ്റിൽ നിന്ന് ചേർക്കുക',
-          'scan_recipe_beta': 'സ്കാൻ പാചകക്കുറിപ്പ് (ബീറ്റ)'
+          'scan_recipe_beta': 'സ്കാൻ പാചകക്കുറിപ്പ് (ബീറ്റ)',
+          'description': 'വിവരണം',
         },
       };
 

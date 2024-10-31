@@ -4,6 +4,7 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:recipe_getx/domain/models/recipes_model.dart';
 import 'package:recipe_getx/domain/services/recipe_service.dart';
 import 'package:recipe_getx/infrastructure/controller/recipe_controller.dart';
+import 'package:recipe_getx/presentation/pages/home_screen/description_page.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -58,37 +59,68 @@ class HomeScreen extends StatelessWidget {
           itemCount: recipeController.recipes.length,
           itemBuilder: (context, index) {
             final RecipeModel recipe = recipeController.recipes[index];
-            return Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Card(
-                child: ListTile(
-                  contentPadding: const EdgeInsets.all(8.0),
-                  leading: Image.network(
-                    recipe.imageUrl,
-                    height: 100,
-                    width: 100,
-                  ),
-                  title:
-                      Text(recipe.name, style: const TextStyle(fontSize: 18)),
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(height: 10),
-                      Text(recipe.description,
-                          style: const TextStyle(fontSize: 16)),
-                      const SizedBox(height: 10),
-                      Text("Cooking Time: ${recipe.cookingTime}",
-                          style: const TextStyle(fontSize: 14)),
-                      const SizedBox(height: 10),
-                      Text("Ingredients: ${recipe.ingredients}",
-                          style: const TextStyle(fontSize: 14)),
-                    ],
-                  ),
-                  trailing: IconButton(
-                    icon: const Icon(Icons.delete, color: Colors.red),
-                    onPressed: () async {
-                      await recipeController.deleteRecipe(index);
-                    },
+            return GestureDetector(
+              onTap: () => Get.to(() => DescriptionScreen(recipeModel: recipe)),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 16.0, right: 16, top: 6),
+                child: Card(
+                  child: ListTile(
+                    contentPadding: const EdgeInsets.all(8.0),
+                    title: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          flex: 2,
+                          child: recipe.imageUrl.isNotEmpty
+                              ? Image.network(
+                                  recipe.imageUrl,
+                                  height: 100,
+                                  width: 100,
+                                  errorBuilder: (context, error, stackTrace) =>
+                                      Container(
+                                    height: 100,
+                                    width: 100,
+                                    decoration: BoxDecoration(
+                                      color: Colors.grey,
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    child:
+                                        const Center(child: Text('No image')),
+                                  ),
+                                )
+                              : Container(
+                                  height: 100,
+                                  width: 100,
+                                  decoration:
+                                      const BoxDecoration(color: Colors.grey),
+                                  child: const Center(child: Text('No image')),
+                                ),
+                        ),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          flex: 4,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 20.0, top: 30),
+                            child: Text(recipe.name,
+                                style: const TextStyle(fontSize: 18)),
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          flex: 1,
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 10, top: 20),
+                            child: IconButton(
+                              icon: const Icon(Icons.delete, color: Colors.red),
+                              onPressed: () async {
+                                await recipeController.deleteRecipe(index);
+                              },
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

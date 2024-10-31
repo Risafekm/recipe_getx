@@ -10,6 +10,7 @@ import 'package:recipe_getx/presentation/pages/add_screen/add_new_recipe.dart';
 import 'package:recipe_getx/presentation/pages/calendar/calendar.dart';
 
 import 'package:recipe_getx/presentation/pages/grocery/grocery.dart';
+import 'package:recipe_getx/presentation/pages/home_screen/description_page.dart';
 import 'package:recipe_getx/presentation/pages/home_screen/home_screen.dart';
 import 'package:recipe_getx/presentation/splash_screen/splash_screen.dart';
 
@@ -46,7 +47,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/home', page: () => const HomeScreen()),
         GetPage(name: '/grocery', page: () => const GroceryScreen()),
         GetPage(name: '/add', page: () => const AddNewRecipe()),
-        GetPage(name: '/bottom', page: () => const BottomNavigator())
+        GetPage(name: '/bottom', page: () => const BottomNavigator()),
       ],
     );
   }

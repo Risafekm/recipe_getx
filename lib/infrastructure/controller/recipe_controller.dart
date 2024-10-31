@@ -26,8 +26,9 @@ class RecipeController extends GetxController {
   }
 
   // Delete recipe and update the list
+  // Delete a specific recipe by index and update the list
   Future<void> deleteRecipe(int index) async {
     await _recipeService.deleteRecipe(index);
-    recipes.removeAt(index);
+    loadRecipes(); // Refresh the list after deletion
   }
 }

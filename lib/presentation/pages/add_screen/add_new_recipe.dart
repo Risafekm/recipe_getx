@@ -16,12 +16,6 @@ class AddNewRecipe extends StatelessWidget {
   Widget build(BuildContext context) {
     final RecipeController recipeController = Get.put(RecipeController());
 
-    final TextEditingController nameController = TextEditingController();
-    final TextEditingController imageUrlController = TextEditingController();
-    final TextEditingController descriptionController = TextEditingController();
-    final TextEditingController cookingTimeController = TextEditingController();
-    final TextEditingController ingredientsController = TextEditingController();
-
     return Scaffold(
       appBar: AppBar(
         leading: GestureDetector(
@@ -35,7 +29,7 @@ class AddNewRecipe extends StatelessWidget {
           children: [
             const SizedBox(height: 20),
             TextArea(
-              controller: nameController,
+              controller: recipeController.nameController,
               keyboardType: TextInputType.text,
               name: 'Recipe Name',
               prefixIcon: const Icon(Icons.restaurant),
@@ -46,7 +40,7 @@ class AddNewRecipe extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             TextArea(
-              controller: imageUrlController,
+              controller: recipeController.imageUrlController,
               keyboardType: TextInputType.text,
               name: 'Image Url',
               prefixIcon: const Icon(Icons.image),
@@ -57,7 +51,7 @@ class AddNewRecipe extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             TextArea(
-              controller: descriptionController,
+              controller: recipeController.descriptionController,
               keyboardType: TextInputType.multiline,
               name: 'Recipe Description',
               prefixIcon: const Icon(Icons.description),
@@ -68,7 +62,7 @@ class AddNewRecipe extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             TextArea(
-              controller: cookingTimeController,
+              controller: recipeController.cookingTimeController,
               keyboardType: TextInputType.text,
               name: 'Cooking Time',
               prefixIcon: const Icon(Icons.timelapse),
@@ -79,7 +73,7 @@ class AddNewRecipe extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             TextArea(
-              controller: ingredientsController,
+              controller: recipeController.ingredientsController,
               keyboardType: TextInputType.multiline,
               name: 'Ingredients',
               prefixIcon: const Icon(Icons.food_bank),
@@ -92,24 +86,8 @@ class AddNewRecipe extends StatelessWidget {
             Button(
               text: 'Save',
               onTap: () async {
-                final recipe = RecipeModel(
-                  name: nameController.text,
-                  imageUrl: imageUrlController.text,
-                  description: descriptionController.text,
-                  cookingTime: cookingTimeController.text,
-                  ingredients: ingredientsController.text,
-                );
-
-                RecipeService().addRecipe(recipe);
+                recipeController.addRecipes();
                 Get.back(); // Close the current screen
-                nameController.clear();
-                imageUrlController.clear();
-                descriptionController.clear();
-                cookingTimeController.clear();
-                ingredientsController.clear();
-
-                //loading
-                recipeController.loadRecipes();
               },
             ),
           ],

@@ -36,16 +36,16 @@ class BottomNavigator extends StatelessWidget {
           children: [
             Expanded(
               child: GestureDetector(
-                onTap: () => Get.toNamed('/calendar'),
+                onTap: () => Get.toNamed('/recipe'),
                 child: Container(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Icon(Icons.calendar_month_rounded, size: 24),
+                      const Icon(Icons.restaurant_rounded, size: 24),
                       const SizedBox(height: 3),
                       Flexible(
                         child: Text(
-                          'calendar'.tr,
+                          'recipe'.tr,
                           style: const TextStyle(
                               fontSize: 12, fontWeight: FontWeight.bold),
                           overflow: TextOverflow.ellipsis,

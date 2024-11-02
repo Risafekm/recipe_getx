@@ -45,11 +45,4 @@ class GroceryService {
     }
     await groceryBox!.deleteAt(index);
   }
-
-  Future<void> saveReorderedGrocery(List<GroceryModel> groceryList) async {
-    await groceryBox!.clear(); // Clear existing data
-    for (final grocery in groceryList) {
-      await groceryBox!.add(grocery); // Add items in new order
-    }
-  }
 }

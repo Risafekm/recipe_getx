@@ -42,16 +42,6 @@ class GroceryController extends GetxController {
     loadGrocery();
   }
 
-//reorder
-  void reorderGrocery(int oldIndex, int newIndex) {
-    if (newIndex > oldIndex) {
-      newIndex -= 1; // Adjust for ReorderableListView behavior
-    }
-    final GroceryModel item = grocery.removeAt(oldIndex); // Remove the item
-    grocery.insert(newIndex, item); // Insert at the new position
-    update(); // Notify listeners to update the UI
-  }
-
   void toggleCheckbox(int index, bool? value) {
     // Check if the value is null; if so, default it to false
     final bool isChecked = value ?? false;

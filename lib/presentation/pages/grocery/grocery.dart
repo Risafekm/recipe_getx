@@ -90,10 +90,7 @@ class GroceryScreen extends StatelessWidget {
               ),
             );
           }
-          return ReorderableListView.builder(
-            onReorder: (int oldIndex, int newIndex) {
-              groceryController.reorderGrocery(oldIndex, newIndex);
-            },
+          return ListView.builder(
             itemCount: groceryController.grocery.length,
             itemBuilder: (context, index) {
               final GroceryModel grocery = groceryController.grocery[index];

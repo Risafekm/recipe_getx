@@ -99,6 +99,7 @@ class GroceryScreen extends StatelessWidget {
               return Dismissible(
                 key: ValueKey(
                     grocery.name + index.toString()), // Ensure unique key
+                crossAxisEndOffset: 0.8,
                 background: Container(
                   color: Colors.red,
                   alignment: Alignment.centerRight,

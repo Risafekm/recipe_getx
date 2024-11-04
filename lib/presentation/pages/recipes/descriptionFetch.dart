@@ -2,11 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:recipe_getx/domain/models/recipes_model.dart';
+import 'package:recipe_getx/domain/models/fetch_model/fetch_model.dart';
 
-class DescriptionScreen extends StatelessWidget {
-  RecipeModel recipeModel;
-  DescriptionScreen({super.key, required this.recipeModel});
+class FetchDescriptionScreen extends StatelessWidget {
+  FetchModel recipeModel;
+  FetchDescriptionScreen({super.key, required this.recipeModel});
 
   @override
   Widget build(BuildContext context) {
@@ -68,33 +68,35 @@ class DescriptionScreen extends StatelessWidget {
             const SizedBox(height: 10),
             Padding(
               padding: const EdgeInsets.only(left: 20.0),
-              child: Text(recipeModel.cookingTime,
+              child: Text("${recipeModel.cookingTime}",
                   style: const TextStyle(
                       fontSize: 16, fontWeight: FontWeight.w300)),
             ),
             const SizedBox(height: 20),
-            const Padding(
-              padding: EdgeInsets.only(left: 20.0),
+            Padding(
+              padding: const EdgeInsets.only(left: 20.0),
               child: Text('ingredients',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                  style: const TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.bold)),
             ),
-            const SizedBox(height: 7),
+            SizedBox(height: 7),
             Padding(
               padding: const EdgeInsets.only(left: 20.0),
               child: Text("${recipeModel.ingredients}",
                   style: const TextStyle(
                       fontSize: 16, fontWeight: FontWeight.w300)),
             ),
-            const SizedBox(height: 30),
-            const Padding(
-              padding: EdgeInsets.only(left: 20.0),
+            SizedBox(height: 30),
+            Padding(
+              padding: const EdgeInsets.only(left: 20.0),
               child: Text('Making',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                  style: const TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.bold)),
             ),
             SizedBox(height: 7),
             Padding(
               padding: const EdgeInsets.only(left: 20.0),
-              child: Text("${recipeModel.description}",
+              child: Text("${recipeModel.making}",
                   style: const TextStyle(
                       fontSize: 16, fontWeight: FontWeight.w300)),
             ),

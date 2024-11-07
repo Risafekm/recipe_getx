@@ -1,5 +1,5 @@
 // lib/services/grocery_service.dart
-import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:recipe_getx/domain/models/grocery_model/grocery_model.dart';
 
 class GroceryService {

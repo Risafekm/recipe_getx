@@ -1,5 +1,6 @@
 // lib/services/recipe_service.dart
-import 'package:hive/hive.dart';
+
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:recipe_getx/domain/models/recipes_model.dart';
 
 class RecipeService {

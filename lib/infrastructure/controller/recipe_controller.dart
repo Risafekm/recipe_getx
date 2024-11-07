@@ -19,8 +19,6 @@ class RecipeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    loadRecipes();
-
     // Set up a listener to update the recipe list in real time
     Hive.box<RecipeModel>('recipes').listenable().addListener(() {
       loadRecipes();
@@ -56,6 +54,36 @@ class RecipeController extends GetxController {
   Future<void> deleteRecipe(int index) async {
     await _recipeService.deleteRecipe(index);
     loadRecipes(); // Refresh the list after deletion
+  }
+// In RecipeController
+
+  void reorderRecipe(int oldIndex, int newIndex) async {
+    if (newIndex > oldIndex) {
+      newIndex -= 1;
+    }
+
+    final RecipeModel recipe = recipes.removeAt(oldIndex);
+    recipes.insert(newIndex, recipe);
+
+    // Clear and re-add all items in the correct order to the Hive box
+    await _recipeService.recipeBox?.clear();
+    for (final recipe in recipes) {
+      await _recipeService.addRecipe(recipe);
+    }
+  }
+
+// Save the recipes to Hive
+  Future<void> saveRecipesToHive() async {
+    // Make a copy of the list to avoid concurrent modification
+    List<RecipeModel> recipeCopy = List.from(recipes);
+
+    // Clear the existing Hive data before saving the updated list
+    await _recipeService.recipeBox?.clear();
+
+    // Iterate over the copied list to save each item
+    for (var recipe in recipeCopy) {
+      await _recipeService.addRecipe(recipe); // Save each recipe to Hive
+    }
   }
 
   clear() {

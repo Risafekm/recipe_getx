@@ -5,14 +5,24 @@ import 'package:recipe_getx/domain/models/recipes_model.dart';
 import 'package:recipe_getx/infrastructure/controller/recipe_controller.dart';
 import 'package:recipe_getx/presentation/pages/home_screen/description_page.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    Get.put(RecipeController()).loadRecipes();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     // Initialize RecipeController
     final RecipeController recipeController = Get.put(RecipeController());
-    recipeController.loadRecipes();
 
     final List languages = [
       {"name": "english".tr, "locale": const Locale('en', 'US')},
@@ -54,16 +64,28 @@ class HomeScreen extends StatelessWidget {
             ),
           );
         }
-        return ListView.builder(
+
+        return ReorderableListView.builder(
           itemCount: recipeController.recipes.length,
+          onReorder: (int oldIndex, int newIndex) async {
+            if (newIndex > oldIndex) {
+              newIndex -= 1;
+            }
+            final movedRecipe = recipeController.recipes.removeAt(oldIndex);
+            recipeController.recipes.insert(newIndex, movedRecipe);
+
+            recipeController
+                .saveRecipesToHive(); // Save the new order after reordering
+          },
           itemBuilder: (context, index) {
             final RecipeModel recipe = recipeController.recipes[index];
             return GestureDetector(
+              key: Key(recipe.name),
               onTap: () => Get.to(() => DescriptionScreen(recipeModel: recipe)),
               child: Dismissible(
-                key: Key(recipe.name),
+                key: ValueKey(recipe.name),
                 background: Container(
-                  color: Colors.red, // Background color when swiped
+                  color: Colors.red,
                   alignment: Alignment.centerRight,
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: const Icon(
@@ -73,10 +95,7 @@ class HomeScreen extends StatelessWidget {
                 ),
                 direction: DismissDirection.endToStart,
                 onDismissed: (direction) {
-                  // Remove the item from the list and the database
                   recipeController.deleteRecipe(index);
-
-                  // Show a snackbar after deletion
                   Get.snackbar(
                     'Deleted',
                     '${recipe.name} has been removed from the list',
@@ -85,7 +104,6 @@ class HomeScreen extends StatelessWidget {
                   );
                 },
                 confirmDismiss: (direction) async {
-                  // Optionally confirm dismissal
                   return await showDialog(
                     context: context,
                     builder: (context) => AlertDialog(
